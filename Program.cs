@@ -12,6 +12,19 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IFile, FileRepository>();
 
+builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowAnyOrigin",
+            builder =>
+            {
+                builder
+                    .AllowAnyOrigin() // Allow requests from any origin
+                    .AllowAnyMethod() // Allow any HTTP method (GET, POST, PUT, DELETE, etc.)
+                    .AllowAnyHeader(); // Allow any HTTP headers
+            });
+    }
+);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -20,6 +33,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors();
 
 app.UseHttpsRedirection();
 

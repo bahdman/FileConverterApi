@@ -1,10 +1,12 @@
 using FileConverter.Repositories.Services;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 
 namespace FileConverter.Controllers{
     [ApiController]
     [Route("api")]
+    [EnableCors("AllowAnyOrigin")]
     public class FileController : ControllerBase{
 
         private readonly IFile _service;

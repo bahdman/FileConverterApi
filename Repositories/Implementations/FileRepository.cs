@@ -73,7 +73,7 @@ namespace FileConverter.Repositories.Implementations
             try{
                 // Pdf2Docx converter = new();
                 var pathToSave = filePath.Replace("Document", "Converted");
-                var savePath = Path.ChangeExtension(pathToSave, ".docx");
+                var savePath = pathToSave.Replace(".pdf", ".docx");
 
                 if(!Directory.Exists("Converted"))
                 {

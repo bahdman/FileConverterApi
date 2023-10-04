@@ -72,12 +72,12 @@ namespace FileConverter.Repositories.Implementations
         {
             try{
                 // Pdf2Docx converter = new();
-                var pathToSave = filePath.Replace("Document", "ConvertedDocx");
+                var pathToSave = filePath.Replace("Document", "Converted");
                 var savePath = Path.ChangeExtension(pathToSave, ".docx");
 
-                if(!Directory.Exists("ConvertedDocx"))
+                if(!Directory.Exists("Converted"))
                 {
-                    Directory.CreateDirectory("ConvertedDocx");
+                    Directory.CreateDirectory("Converted");
                 }
 
                 SautinSoft.PdfFocus instance = new SautinSoft.PdfFocus();

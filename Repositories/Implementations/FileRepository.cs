@@ -75,6 +75,11 @@ namespace FileConverter.Repositories.Implementations
                 var pathToSave = filePath.Replace("Document", "ConvertedDocx");
                 var savePath = Path.ChangeExtension(pathToSave, ".docx");
 
+                if(!Directory.Exists("ConvertedDocx"))
+                {
+                    Directory.CreateDirectory("ConvertedDocx");
+                }
+
                 SautinSoft.PdfFocus instance = new SautinSoft.PdfFocus();
                 
                 instance.OpenPdf(filePath);

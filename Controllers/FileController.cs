@@ -22,7 +22,7 @@ namespace FileConverter.Controllers{
         {
             var fileExtension = System.IO.Path.GetExtension(file.FileName);
            
-            if(fileExtension == ".docx" || fileExtension == ".pdf")
+            if(fileExtension == ".docx" || fileExtension == ".pdf" || fileExtension == ".doc")
             {
                 var response = _service.ConvertFile(file);
 
@@ -31,10 +31,11 @@ namespace FileConverter.Controllers{
                     return BadRequest("Unable to process document");
                 }
 
-                byte [] bytes = System.IO.File.ReadAllBytes(response.FilePath);
+                byte [] bytes = System.IO.File.ReadAllBytes(response.RefinedPath);
                 System.Threading.Thread.Sleep(1000);
 
                 System.IO.File.Delete(response.FilePath);
+                System.IO.File.Delete(response.RefinedPath);
                 return File(bytes, response.FileType, response.FileName);
             }           
                         

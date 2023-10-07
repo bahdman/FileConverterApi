@@ -20,8 +20,8 @@ namespace FileConverter.Repositories.Implementations
                 var extension = Path.GetExtension(file.FileName);
                 if(extension == ".pdf")
                 {
-                    var pathToDoc = SaveFileToDir(file);
-                    path = PdfToWord(pathToDoc.Result);
+                    var pathToDoc = SaveFileToDir(file).Result;
+                    path = PdfToWord(pathToDoc);
                     // PdfToWord(file);
 
                     fileName = Path.GetFileName(path);
@@ -32,7 +32,8 @@ namespace FileConverter.Repositories.Implementations
 
                     response =  new ApiResponse()
                     {
-                        FilePath = path,
+                        FilePath = pathToDoc,
+                        RefinedPath = path,
                         FileType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                         FileName = fileName
                     };                
@@ -51,7 +52,8 @@ namespace FileConverter.Repositories.Implementations
 
                 response =  new ApiResponse()
                 {
-                    FilePath = docPath,
+                    FilePath = path,
+                    RefinedPath = docPath,
                     FileType = "application/pdf",
                     FileName = docFileName
                 };  
@@ -72,10 +74,11 @@ namespace FileConverter.Repositories.Implementations
         {
             try{
                 // Pdf2Docx converter = new();
+                var basePath = Path.Combine("Converted");
                 var pathToSave = filePath.Replace("Document", "Converted");
                 var savePath = pathToSave.Replace(".pdf", ".docx");
 
-                if(!Directory.Exists("Converted"))
+                if(!Directory.Exists(basePath))
                 {
                     Directory.CreateDirectory("Converted");
                 }
